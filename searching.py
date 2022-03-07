@@ -37,3 +37,31 @@ def quickselect(array, k):
             end = right - 1
 
     return array[start]
+
+
+def binary_search(array, target):
+    """Binary search.
+
+    Steps
+      1. Check mid point against target
+      2. If equal to target, return mid index
+      3. If smaller than target, look to the right
+      4. If bigger than target, look to the left
+
+               Time          Space
+    Average    log(n)        1
+    Best       log(n)        1
+    Worst      log(n)        1
+    """
+    start = 0
+    end = len(array) - 1
+    while start <= end:
+        mid = (start + end) // 2
+        curr_num = array[mid]
+        if curr_num == target:
+            return mid
+        elif curr_num < target:
+            start = mid + 1
+        else:
+            end = mid - 1
+    return -1
