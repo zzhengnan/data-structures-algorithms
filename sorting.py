@@ -100,3 +100,42 @@ def heapsort(array):
         boundary -= 1
         sift_down(array, end=boundary)
     return array
+
+
+def mergesort(array):
+    """Mergesort.
+
+    Steps
+      1. Split array into 2 halves
+      2. Sort left and right subarrays separately
+      3. Merge sorted left and right subarrays
+
+               Time          Space
+    Average    n * log(n)    n * log(n)
+    Best       n * log(n)    n * log(n)
+    Worst      n * log(n)    n * log(n)
+
+    Space complexity can be optimized to n by not using string slicing in each pass.
+    """
+    def merge(left, right):
+        i, j = 0, 0
+        merged = []
+        while i < len(left) or j < len(right):
+            left_num = left[i] if i < len(left) else float('inf')
+            right_num = right[j] if j < len(right) else float('inf')
+            if left_num <= right_num:
+                merged.append(left_num)
+                i += 1
+            else:
+                merged.append(right_num)
+                j += 1
+        return merged
+
+    if len(array) <= 1:
+        return array
+
+    mid = len(array) // 2
+    left, right = array[:mid], array[mid:]
+    left, right = mergesort(left), mergesort(right)
+    merged = merge(left, right)
+    return merged
